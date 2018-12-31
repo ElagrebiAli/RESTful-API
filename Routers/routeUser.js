@@ -1,3 +1,4 @@
+
 const express=require('express')
 const routeUser=express.Router()
 const _=require('lodash')
@@ -5,6 +6,7 @@ const _=require('lodash')
 var {User}=require('../Models/user')
 
 //POST /users
+
 routeUser.post('/',(req,res)=>{
   var body=_.pick(req.body,['email','password'])
   var user=new User(body)
@@ -14,6 +16,7 @@ routeUser.post('/',(req,res)=>{
     res.header('x-auth',token).send(user)
   }).catch((err)=>{
     if(err.errors){
+      console.log(err)
         if(err.errors.email){
             res.status(400).json({message:err.errors.email.message})
         }
@@ -21,7 +24,7 @@ routeUser.post('/',(req,res)=>{
           res.status(400).json({message:err.errors.password.message})
         }
     }else if(err.code===11000){
-          res.send(400).json({message:'email already taken'})
+          res.status(400).json({message:'email already taken'})
     }
   })
 })

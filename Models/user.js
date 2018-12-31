@@ -20,6 +20,7 @@ var UserSchema= new Schema({
     type:String,
     require:[true,"password is required"],
     minlength:[6,"Ooh!Password must be at least contient 6 caracters"]
+
 },
   tokens:[{
      access:{
@@ -32,12 +33,16 @@ var UserSchema= new Schema({
      }
   }]
 })
-
+UserSchema.methods.toJSON=function(){
+  var user=this
+  var userObject=user.toObject()
+  return _.pick(userObject,['_id','email'])
+}
 
 UserSchema.methods.generateToken=function(){
   var user=this
   var access='auth'
-  var token=jwt.sign({_id:user._id,access},process.env.JWT_SECRET).toString()
+  var token=jwt.sign({_id:user._id},process.env.JWT_SECRET)/*lina fama tabdila*/
   user.tokens.push({access,token})
   return user.save().then(()=>{
     return token
@@ -57,4 +62,4 @@ UserSchema.pre('save',function(next){
 })
 
 var User=mongoose.model('User',UserSchema)
-mongoose.exports={User}
+module.exports={User}
