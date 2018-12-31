@@ -13,7 +13,11 @@ const port=process.env.port
 
 app.use(bodyparser.json())
 
+app.use('/users',routeUser)
+
 
 app.listen(port,()=>{
   console.log(`Started up at port ${port}`)
 })
+
+module.exports={app}
