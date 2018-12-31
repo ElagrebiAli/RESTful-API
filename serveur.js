@@ -10,6 +10,7 @@ var {routeUser}=require('./Routers/routeUser')
 
 var app=express()
 const port=process.env.port
+console.log(port)
 
 app.use(bodyparser.json())
 
