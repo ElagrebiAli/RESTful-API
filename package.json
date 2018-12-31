@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node serveur.js",
+    "start": "SET \"NODE_ENV=development\" && node serveur.js",
     "test": "SET \"NODE_ENV=test\" && mocha **/*.test.js",
     "test-watch": "nodemon --exec \"npm test\" "
   },
@@ -30,4 +30,3 @@
     "supertest": "^3.3.0"
   }
 }
-heroku addons:create mongolab:sandbox
