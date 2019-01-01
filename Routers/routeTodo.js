@@ -78,6 +78,9 @@ routeTodo.patch('/todo/:id',authenticate,(req,res)=>{
   }
   if(body.completed){
     body.completedAt= Date.now()
+  }else{
+    body.completed=false
+    body.completedAt=null
   }
   Todo.findOneAndUpdate({_id:req.params.id,_creator:req.user._id},{$set:body},{new:true}).then((todo)=>{
     if(!todo){
