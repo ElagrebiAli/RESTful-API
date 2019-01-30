@@ -60,7 +60,7 @@ UserSchema.methods.removeToken=function(token){
 }
 
 UserSchema.statics.findByToken=function(token){
-  var User=this
+  
  try{
    var decoded=jwt.verify(token,process.env.JWT_SECRET)
  }catch(e){
